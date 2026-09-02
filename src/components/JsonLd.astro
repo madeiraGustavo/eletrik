@@ -1,0 +1,117 @@
+---
+import { site, servicesCatalog, getSeoTitle, getSeoDescription } from '../lib/site';
+import { faqItems } from '../lib/faq';
+
+interface Props {
+	canonical: string;
+}
+
+const { canonical } = Astro.props;
+const base = import.meta.env.BASE_URL.endsWith('/')
+	? import.meta.env.BASE_URL
+	: `${import.meta.env.BASE_URL}/`;
+const logoUrl = new URL(`${base}favicon.svg`, Astro.site).href;
+const imageUrl = new URL(`${base}${site.ogImage}`, Astro.site).href;
+const isPlaceholderPhone = !site.whatsappNumber || /^55?0+$/.test(site.whatsappNumber);
+const telephone = isPlaceholderPhone
+	? undefined
+	: site.whatsappNumber.startsWith('55')
+		? `+${site.whatsappNumber}`
+		: site.whatsappNumber;
+
+const electricianId = `${canonical}#electrician`;
+const websiteId = `${canonical}#website`;
+const webpageId = `${canonical}#webpage`;
+
+const areaServed =
+	site.areaServed.length > 0
+		? site.areaServed.map((name) => ({ '@type': 'Place', name }))
+		: site.city
+			? [{ '@type': 'City', name: site.city }]
+			: undefined;
+
+const electrician: Record<string, unknown> = {
+	'@type': 'Electrician',
+	'@id': electricianId,
+	name: site.name,
+	url: canonical,
+	image: imageUrl,
+	logo: logoUrl,
+	description: getSeoDescription(),
+};
+
+if (telephone) electrician.telephone = telephone;
+if (site.email) electrician.email = site.email;
+if (site.sameAs.length) electrician.sameAs = site.sameAs;
+if (areaServed) electrician.areaServed = areaServed;
+if (site.city) {
+	electrician.address = {
+		'@type': 'PostalAddress',
+		addressLocality: site.city,
+		addressCountry: 'BR',
+	};
+}
+if (site.openingHours) {
+	electrician.openingHours = site.openingHours;
+	electrician.openingHoursSpecification = {
+		'@type': 'OpeningHoursSpecification',
+		description: site.openingHours,
+	};
+}
+
+const services = servicesCatalog.map((service) => ({
+	'@type': 'Service',
+	'@id': `${canonical}#service-${service.slug}`,
+	name: service.name,
+	description: service.description,
+	provider: { '@id': electricianId },
+	areaServed: areaServed,
+	serviceType: service.name,
+}));
+
+const faqPage = {
+	'@type': 'FAQPage',
+	'@id': `${canonical}#faq`,
+	mainEntity: faqItems.map((item) => ({
+		'@type': 'Question',
+		name: item.q,
+		acceptedAnswer: {
+			'@type': 'Answer',
+			text: item.a,
+		},
+	})),
+};
+
+const graph = [
+	electrician,
+	...services,
+	faqPage,
+	{
+		'@type': 'WebSite',
+		'@id': websiteId,
+		url: canonical,
+		name: site.name,
+		description: getSeoDescription(),
+		inLanguage: 'pt-BR',
+		publisher: { '@id': electricianId },
+	},
+	{
+		'@type': 'WebPage',
+		'@id': webpageId,
+		url: canonical,
+		name: getSeoTitle(),
+		description: getSeoDescription(),
+		inLanguage: 'pt-BR',
+		isPartOf: { '@id': websiteId },
+		about: { '@id': electricianId },
+		primaryImageOfPage: imageUrl,
+	},
+];
+
+const jsonLd = {
+	'@context': 'https://schema.org',
+	'@graph': graph,
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

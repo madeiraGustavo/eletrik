@@ -1,0 +1,109 @@
+---
+import { Image } from 'astro:assets';
+import heroImage from '../assets/images/hero-eletrica.jpg';
+import CtaButton from './CtaButton.astro';
+import { site } from '../lib/site';
+
+const base = import.meta.env.BASE_URL.endsWith('/')
+	? import.meta.env.BASE_URL
+	: `${import.meta.env.BASE_URL}/`;
+
+const citySuffix = site.city ? ` em ${site.city}` : '';
+
+const chips = [
+	{ label: 'Residencial', icon: 'home' as const },
+	{ label: 'Comercial', icon: 'store' as const },
+	{ label: 'Orçamento claro', icon: 'check' as const },
+];
+---
+
+<section id="hero" data-section="hero" class="relative overflow-hidden bg-zinc-950 text-white">
+	<div class="absolute inset-0 lg:hidden">
+		<Image
+			src={heroImage}
+			alt={`Mão ajustando disjuntor em quadro elétrico com fiação colorida${citySuffix}`}
+			class="h-full w-full object-cover object-center"
+			widths={[640, 960, 1280]}
+			sizes="100vw"
+			width={1280}
+			height={850}
+			loading="eager"
+			fetchpriority="high"
+		/>
+		<div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/88 to-zinc-950/50"></div>
+	</div>
+
+	<div class="ui-container relative grid items-center gap-10 py-16 md:py-20 lg:grid-cols-2 lg:gap-12 lg:py-24">
+		<div>
+			<p class="ui-eyebrow-on-dark">Serviços elétricos</p>
+			<h1
+				class="font-display font-bold tracking-tight text-white"
+				style="font-size: clamp(2.5rem, 5vw, 3.5rem); line-height: 1.05;"
+			>
+				Energia segura para sua casa e o seu negócio
+			</h1>
+			<p class="ui-lead-on-dark mt-5 max-w-xl md:text-lg">
+				Instalação, manutenção e reparos elétricos com foco em segurança, prazo combinado e um
+				próximo passo claro: o orçamento no WhatsApp.
+			</p>
+
+			<div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+				<div class="w-full sm:w-auto">
+					<CtaButton cta="hero_primary" fullWidth />
+				</div>
+				<a href={`${base}#servicos`} data-track="ver_servicos" class="ui-btn-ghost ui-btn-block sm:w-auto">
+					Ver serviços
+				</a>
+			</div>
+
+			<p class="mt-4 text-sm text-zinc-400">
+				Orçamento sem compromisso · Atendimento residencial e comercial
+				{site.city ? ` · ${site.city}` : ''}
+			</p>
+
+			<ul class="mt-8 flex gap-3 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+				{
+					chips.map((chip) => (
+						<li class="ui-chip-on-dark">
+							{chip.icon === 'home' && (
+								<svg class="size-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+									<path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5Z" stroke-linejoin="round" />
+								</svg>
+							)}
+							{chip.icon === 'store' && (
+								<svg class="size-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+									<path d="M4 10h16v10H4V10Zm0 0 1.5-5h13L20 10M9 20v-6h6v6" stroke-linejoin="round" />
+								</svg>
+							)}
+							{chip.icon === 'check' && (
+								<svg class="size-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+									<path d="m5 12 4 4L19 6" stroke-linecap="round" stroke-linejoin="round" />
+								</svg>
+							)}
+							{chip.label}
+						</li>
+					))
+				}
+			</ul>
+		</div>
+
+		<div class="relative hidden lg:block">
+			<div class="ui-media relative">
+				<Image
+					src={heroImage}
+					alt={`Mão ajustando disjuntor em quadro elétrico com fiação colorida${citySuffix}`}
+					class="aspect-[4/3] h-full w-full object-cover object-[45%_40%]"
+					widths={[640, 900, 1200]}
+					sizes="(min-width: 1024px) 28rem, 100vw"
+					width={900}
+					height={675}
+					loading="eager"
+					fetchpriority="high"
+				/>
+				<div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-zinc-950/85 to-transparent p-5">
+					<p class="text-sm font-medium text-white">Serviço organizado, do diagnóstico à execução</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

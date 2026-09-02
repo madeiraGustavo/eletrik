@@ -1,0 +1,29 @@
+---
+import { faqItems } from '../lib/faq';
+---
+
+<section id="faq" data-section="faq" class="ui-section bg-surface" aria-labelledby="faq-heading">
+	<div class="ui-container">
+		<p class="ui-eyebrow">Antes de chamar</p>
+		<h2 id="faq-heading" class="ui-heading max-w-3xl">
+			O que você precisa saber antes de solicitar o serviço
+		</h2>
+		<p class="ui-lead">Dúvidas frequentes sobre atendimento e orçamento.</p>
+		<div class="mt-10 divide-y divide-zinc-200 border-y border-zinc-200">
+			{
+				faqItems.map((item) => (
+					<details class="group py-5" data-faq-id={item.id}>
+						<summary class="cursor-pointer list-none text-left font-display font-semibold text-zinc-900 marker:content-none [&::-webkit-details-marker]:hidden">
+							<span class="flex items-center justify-between gap-4">
+								{item.q}
+								<span class="text-amber-600 group-open:hidden">+</span>
+								<span class="hidden text-amber-600 group-open:inline">–</span>
+							</span>
+						</summary>
+						<p class="mt-3 max-w-3xl text-sm leading-relaxed text-zinc-600">{item.a}</p>
+					</details>
+				))
+			}
+		</div>
+	</div>
+</section>

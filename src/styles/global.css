@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+@theme {
+	--font-sans: "Inter Variable", Inter, ui-sans-serif, system-ui, sans-serif;
+	--font-display: "Inter Tight", "Inter Variable", Inter, ui-sans-serif, system-ui,
+		sans-serif;
+	--radius-control: 0.75rem; /* 12px botões/inputs/icon */
+	--radius-card: 1rem; /* 16px cards */
+	--radius-panel: 1.25rem; /* 20px painéis/mídia */
+	--color-surface: #f7f6f3;
+	--color-ink: #18181b;
+}
+
+@layer base {
+	html {
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+
+	body {
+		font-family: var(--font-sans);
+		color: var(--color-ink);
+	}
+
+	h1,
+	h2,
+	h3 {
+		font-family: var(--font-display);
+		letter-spacing: -0.02em;
+	}
+}
+
+@layer components {
+	.ui-container {
+		@apply mx-auto w-full max-w-6xl px-4;
+	}
+
+	.ui-section {
+		@apply scroll-mt-24 py-16 md:py-20;
+	}
+
+	.ui-eyebrow {
+		@apply mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-zinc-500;
+	}
+
+	.ui-eyebrow-on-dark {
+		@apply mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-zinc-400;
+	}
+
+	.ui-heading {
+		@apply font-display text-3xl font-bold tracking-tight text-zinc-900 md:text-4xl;
+	}
+
+	.ui-heading-on-dark {
+		@apply font-display text-3xl font-bold tracking-tight text-white md:text-4xl;
+	}
+
+	.ui-lead {
+		@apply mt-4 max-w-2xl text-base leading-relaxed text-zinc-600;
+	}
+
+	.ui-lead-on-dark {
+		@apply mt-4 max-w-2xl text-base leading-relaxed text-zinc-300;
+	}
+
+	.ui-card {
+		@apply rounded-[var(--radius-card)] border border-zinc-200 bg-white p-6;
+	}
+
+	.ui-card-muted {
+		@apply rounded-[var(--radius-card)] border border-zinc-200 bg-surface p-6;
+	}
+
+	.ui-card-interactive {
+		@apply rounded-[var(--radius-card)] border border-zinc-200 bg-white p-6 transition duration-150 hover:border-amber-400/70;
+	}
+
+	.ui-panel {
+		@apply rounded-[var(--radius-panel)] border border-zinc-200 bg-surface p-6 md:p-8;
+	}
+
+	.ui-panel-dark {
+		@apply rounded-[var(--radius-panel)] bg-zinc-950 p-6 text-white md:p-8;
+	}
+
+	.ui-panel-glass {
+		@apply rounded-[var(--radius-card)] border border-white/10 bg-white/5 p-5;
+	}
+
+	.ui-media {
+		@apply overflow-hidden rounded-[var(--radius-panel)] border border-white/10;
+	}
+
+	.ui-btn-primary {
+		@apply box-border inline-flex h-12 items-center justify-center gap-2 rounded-[var(--radius-control)] bg-amber-500 px-5 text-sm font-semibold text-zinc-950 transition duration-150 hover:bg-amber-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2;
+	}
+
+	.ui-btn-secondary {
+		@apply box-border inline-flex h-12 items-center justify-center gap-2 rounded-[var(--radius-control)] border border-zinc-300 bg-white px-5 text-sm font-semibold text-zinc-900 transition duration-150 hover:border-zinc-400 hover:bg-zinc-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2;
+	}
+
+	.ui-btn-ghost {
+		@apply box-border inline-flex h-12 items-center justify-center gap-2 rounded-[var(--radius-control)] border border-zinc-600 bg-transparent px-5 text-sm font-semibold text-white transition duration-150 hover:border-zinc-400 hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950;
+	}
+
+	.ui-btn-dark {
+		@apply box-border inline-flex h-12 items-center justify-center gap-2 rounded-[var(--radius-control)] bg-zinc-900 px-5 text-sm font-semibold text-white transition duration-150 hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2;
+	}
+
+	.ui-btn-block {
+		@apply w-full;
+	}
+
+	.ui-link {
+		@apply text-sm font-semibold text-amber-700 underline-offset-4 transition hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2;
+	}
+
+	.ui-chip {
+		@apply inline-flex shrink-0 items-center gap-2 rounded-full border border-zinc-300 bg-white px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wide text-zinc-700;
+	}
+
+	.ui-chip-on-dark {
+		@apply inline-flex shrink-0 items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-zinc-200;
+	}
+
+	.ui-icon-box {
+		@apply flex size-11 shrink-0 items-center justify-center rounded-[var(--radius-control)] bg-zinc-950 text-amber-400;
+	}
+
+	.ui-icon-box-soft {
+		@apply flex size-10 shrink-0 items-center justify-center rounded-[var(--radius-control)] bg-amber-500/10 text-amber-600;
+	}
+
+	.ui-field {
+		@apply mt-1.5 w-full rounded-[var(--radius-control)] border border-zinc-300 bg-white px-3.5 py-3 text-sm text-zinc-900 outline-none ring-amber-500 placeholder:text-zinc-400 focus:ring-2;
+	}
+
+	.ui-step-badge {
+		@apply flex size-10 items-center justify-center rounded-full bg-zinc-950 font-display text-sm font-bold text-amber-400;
+	}
+}

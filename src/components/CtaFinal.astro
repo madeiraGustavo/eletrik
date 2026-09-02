@@ -1,0 +1,42 @@
+---
+import { Image } from 'astro:assets';
+import ctaImage from '../assets/images/cta-eletrica.jpg';
+import CtaButton from './CtaButton.astro';
+import { site } from '../lib/site';
+
+const citySuffix = site.city ? ` em ${site.city}` : '';
+---
+
+<section
+	id="cta-final"
+	data-section="cta_final"
+	class="relative scroll-mt-24 overflow-hidden text-white"
+	aria-labelledby="cta-heading"
+>
+	<div class="absolute inset-0">
+		<Image
+			src={ctaImage}
+			alt={`Eletricista com capacete e luvas ajustando caixa elétrica na parede${citySuffix}`}
+			class="h-full w-full object-cover object-center"
+			widths={[960, 1400]}
+			sizes="100vw"
+			width={1400}
+			height={900}
+			loading="lazy"
+		/>
+		<div class="absolute inset-0 bg-zinc-950/85"></div>
+	</div>
+
+	<div class="ui-container relative py-20 text-center md:py-24">
+		<p class="ui-eyebrow-on-dark">Pronto para resolver?</p>
+		<h2 id="cta-heading" class="ui-heading-on-dark mx-auto mt-0 max-w-3xl">
+			Sua casa ou o seu negócio merecem uma instalação elétrica segura
+		</h2>
+		<p class="ui-lead-on-dark mx-auto">
+			Conte o que você precisa e receba o caminho até o orçamento pelo WhatsApp.
+		</p>
+		<div class="mx-auto mt-8 flex max-w-xs justify-center">
+			<CtaButton cta="cta_final" fullWidth />
+		</div>
+	</div>
+</section>

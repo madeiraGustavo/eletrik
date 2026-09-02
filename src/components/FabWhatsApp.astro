@@ -1,0 +1,30 @@
+---
+import { site } from '../lib/site';
+import WhatsAppIcon from './WhatsAppIcon.astro';
+---
+
+<a
+	href={site.whatsappUrl}
+	data-cta="fab"
+	data-fab
+	class="fab-wa fixed right-4 bottom-5 z-40 flex size-14 items-center justify-center rounded-full bg-amber-500 text-zinc-950 transition duration-150 hover:bg-amber-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 md:hidden"
+	aria-label="Abrir WhatsApp"
+>
+	<WhatsAppIcon class="size-6" />
+</a>
+
+<style>
+	.fab-wa {
+		opacity: 0;
+		pointer-events: none;
+		transform: translateY(0.75rem);
+		transition:
+			opacity 0.2s ease,
+			transform 0.2s ease;
+	}
+	.fab-wa.is-visible {
+		opacity: 1;
+		pointer-events: auto;
+		transform: translateY(0);
+	}
+</style>

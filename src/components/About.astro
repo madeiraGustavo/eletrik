@@ -1,0 +1,74 @@
+---
+import { Image } from 'astro:assets';
+import aboutImage from '../assets/images/sobre-trabalho.jpg';
+import { site } from '../lib/site';
+
+const badges = [
+	{ label: 'Residencial', detail: 'Casas, apartamentos e condomínios' },
+	{ label: 'Comercial', detail: 'Lojas, escritórios e pequenos negócios' },
+	{ label: 'Direto', detail: 'Você fala com quem executa o serviço' },
+];
+
+const citySuffix = site.city ? ` em ${site.city}` : '';
+const hasArea = Boolean(site.city || site.areaServed.length > 0 || site.openingHours);
+---
+
+<section id="sobre" class="ui-section bg-zinc-950 text-white" aria-labelledby="sobre-heading">
+	<div class="ui-container grid gap-10 md:grid-cols-2 md:items-center md:gap-14">
+		<div class="ui-media relative">
+			<Image
+				src={aboutImage}
+				alt={`Eletricista de capacete ao lado de caixa elétrica na parede${citySuffix}`}
+				class="aspect-[4/3] h-full w-full object-cover object-center"
+				widths={[640, 960, 1200]}
+				sizes="(min-width: 768px) 28rem, 100vw"
+				width={960}
+				height={720}
+			/>
+			<div class="absolute bottom-4 left-4 flex flex-wrap gap-2">
+				<span class="rounded-full border border-white/15 bg-zinc-950/85 px-3 py-1.5 text-xs font-semibold tracking-wide text-zinc-300">
+					Projeto demonstrativo
+				</span>
+			</div>
+		</div>
+
+		<div>
+			<p class="ui-eyebrow-on-dark">Quem vai atender você</p>
+			<h2 id="sobre-heading" class="ui-heading-on-dark">
+				Eletrik: serviço elétrico com conversa direta e execução no local
+			</h2>
+			<p class="ui-lead-on-dark">
+				Do diagnóstico ao reparo, o atendimento é próximo e objetivo. Você descreve o problema e
+				recebe um caminho claro até a solução — sem intermediário genérico.
+			</p>
+
+			<ul class="mt-8 grid gap-3 sm:grid-cols-3">
+				{
+					badges.map((badge) => (
+						<li class="ui-panel-glass">
+							<p class="text-sm font-semibold text-amber-400">{badge.label}</p>
+							<p class="mt-0.5 text-xs leading-relaxed text-zinc-400">{badge.detail}</p>
+						</li>
+					))
+				}
+			</ul>
+
+			{
+				hasArea && (
+					<div class="ui-panel-glass mt-8">
+						<p class="text-xs font-semibold uppercase tracking-[0.16em] text-zinc-400">
+							Área de atendimento
+						</p>
+						{site.city && <p class="mt-2 font-display text-lg font-semibold text-white">{site.city}</p>}
+						{site.areaServed.length > 0 && (
+							<p class="mt-2 text-sm text-zinc-300">{site.areaServed.join(' · ')}</p>
+						)}
+						{site.openingHours && (
+							<p class="mt-2 text-sm text-zinc-400">Horário: {site.openingHours}</p>
+						)}
+					</div>
+				)
+			}
+		</div>
+	</div>
+</section>

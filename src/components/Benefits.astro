@@ -1,0 +1,89 @@
+---
+const items = [
+	{
+		title: 'Segurança em primeiro lugar',
+		text: 'Instalações pensadas para reduzir risco de curto, sobrecarga e choque.',
+		icon: 'shield',
+	},
+	{
+		title: 'Prazo combinado',
+		text: 'Você sabe quando o serviço começa e o que entra no escopo antes da execução.',
+		icon: 'calendar',
+	},
+	{
+		title: 'Casa e empresa',
+		text: 'Atendimento residencial e comercial, do quadro de disjuntores à iluminação.',
+		icon: 'building',
+	},
+	{
+		title: 'Contato direto',
+		text: 'Orçamento e alinhamento pelo WhatsApp, sem intermediário no meio do caminho.',
+		icon: 'chat',
+	},
+	{
+		title: 'Serviço organizado',
+		text: 'Diagnóstico, execução e conferência para você não conviver com o mesmo problema.',
+		icon: 'wrench',
+	},
+	{
+		title: 'Próximo passo claro',
+		text: 'Sem enrolação: você entende o que será feito, por quê e como avançar.',
+		icon: 'path',
+	},
+];
+---
+
+<section id="beneficios" data-section="beneficios" class="ui-section bg-white" aria-labelledby="beneficios-heading">
+	<div class="ui-container">
+		<h2 id="beneficios-heading" class="ui-heading max-w-3xl">
+			Cada detalhe pensado para transformar o chamado em energia estável
+		</h2>
+
+		<ul class="mt-12 grid gap-x-10 gap-y-8 sm:grid-cols-2">
+			{
+				items.map((item) => (
+					<li class="flex gap-4">
+						<span class="ui-icon-box-soft" aria-hidden="true">
+							{item.icon === 'shield' && (
+								<svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+									<path d="M12 3 5 6v6c0 4.5 2.8 7.4 7 8.5 4.2-1.1 7-4 7-8.5V6l-7-3Z" stroke-linejoin="round" />
+								</svg>
+							)}
+							{item.icon === 'calendar' && (
+								<svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+									<path d="M7 4v2M17 4v2M4 9h16M6 6h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z" stroke-linejoin="round" />
+								</svg>
+							)}
+							{item.icon === 'building' && (
+								<svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+									<path d="M4 20h16M6 20V6a1 1 0 0 1 1-1h6v15M14 20V10h4a1 1 0 0 1 1 1v9M9 8h1M9 12h1M9 16h1M17 13h1M17 16h1" stroke-linecap="round" />
+								</svg>
+							)}
+							{item.icon === 'chat' && (
+								<svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+									<path d="M5 6h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H9l-4 3V7a1 1 0 0 1 1-1Z" stroke-linejoin="round" />
+								</svg>
+							)}
+							{item.icon === 'wrench' && (
+								<svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+									<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17v3h3l5.3-5.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.5-2.5 2.5-2.5Z" stroke-linejoin="round" />
+								</svg>
+							)}
+							{item.icon === 'path' && (
+								<svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+									<path d="M5 19h4M9 19a4 4 0 0 0 4-4V9a4 4 0 0 1 4-4h2" stroke-linecap="round" />
+									<circle cx="5" cy="19" r="1.5" fill="currentColor" stroke="none" />
+									<circle cx="19" cy="5" r="1.5" fill="currentColor" stroke="none" />
+								</svg>
+							)}
+						</span>
+						<div>
+							<h3 class="font-display text-lg font-semibold text-zinc-900">{item.title}</h3>
+							<p class="mt-1.5 text-sm leading-relaxed text-zinc-600">{item.text}</p>
+						</div>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</section>

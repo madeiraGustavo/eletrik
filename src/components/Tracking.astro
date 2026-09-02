@@ -1,0 +1,34 @@
+---
+import { site } from '../lib/site';
+
+interface Props {
+	page?: 'home' | 'obrigado';
+}
+
+const { page = 'home' } = Astro.props;
+const isObrigado = page === 'obrigado';
+---
+
+<script
+	define:vars={{
+		whatsappNumber: site.whatsappNumber,
+		whatsappBaseMessage: site.whatsappBaseMessage,
+		leadValue: site.leadValue,
+		leadCurrency: site.leadCurrency,
+		isObrigado,
+	}}
+>
+	window.__eletrikTracking = {
+		whatsappNumber,
+		whatsappBaseMessage,
+		leadValue,
+		leadCurrency,
+		isObrigado,
+	};
+</script>
+<script>
+	import { initTracking } from '../scripts/tracking';
+
+	const cfg = window.__eletrikTracking;
+	if (cfg) initTracking(cfg);
+</script>

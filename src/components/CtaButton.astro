@@ -1,0 +1,39 @@
+---
+import { site, type CtaLocation } from '../lib/site';
+import WhatsAppIcon from './WhatsAppIcon.astro';
+
+interface Props {
+	label?: string;
+	variant?: 'primary' | 'secondary' | 'ghost' | 'dark';
+	fullWidth?: boolean;
+	showIcon?: boolean;
+	cta: CtaLocation;
+	service?: string;
+}
+
+const {
+	label = 'Pedir orçamento no WhatsApp',
+	variant = 'primary',
+	fullWidth = false,
+	showIcon = variant === 'primary',
+	cta,
+	service,
+} = Astro.props;
+
+const variants = {
+	primary: 'ui-btn-primary',
+	secondary: 'ui-btn-secondary',
+	ghost: 'ui-btn-ghost',
+	dark: 'ui-btn-dark',
+};
+---
+
+<a
+	href={site.whatsappUrl}
+	data-cta={cta}
+	data-service={service}
+	class:list={[variants[variant], fullWidth ? 'ui-btn-block' : null]}
+>
+	{showIcon && <WhatsAppIcon class="size-4 shrink-0" />}
+	{label}
+</a>

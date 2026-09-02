@@ -1,0 +1,56 @@
+---
+const steps = [
+	{
+		title: 'Contato',
+		text: 'Você descreve o que precisa pelo WhatsApp — residencial ou comercial.',
+	},
+	{
+		title: 'Orçamento',
+		text: 'Alinhamos escopo, materiais e prazo antes de qualquer execução.',
+	},
+	{
+		title: 'Execução',
+		text: 'O serviço é feito no local, com organização e foco em segurança.',
+	},
+	{
+		title: 'Conferência',
+		text: 'Validamos o resultado com você e deixamos o próximo passo claro, se ainda houver pendência.',
+	},
+];
+---
+
+<section
+	id="como-funciona"
+	data-section="como-funciona"
+	class="ui-section bg-surface"
+	aria-labelledby="jornada-heading"
+>
+	<div class="ui-container">
+		<p class="ui-eyebrow">Como funciona</p>
+		<h2 id="jornada-heading" class="ui-heading max-w-3xl">
+			Do WhatsApp à energia segura, em quatro etapas
+		</h2>
+		<p class="ui-lead">
+			Um caminho objetivo do primeiro contato até a conclusão do serviço.
+		</p>
+
+		<ol class="relative mt-12 grid gap-5 md:grid-cols-4">
+			<div
+				class="pointer-events-none absolute top-8 right-10 left-10 hidden h-px bg-zinc-300 md:block"
+				aria-hidden="true"
+			>
+			</div>
+			{
+				steps.map((step, index) => (
+					<li class="ui-card relative">
+						<div class="ui-step-badge relative z-10">
+							{String(index + 1).padStart(2, '0')}
+						</div>
+						<h3 class="mt-5 font-display text-lg font-semibold text-zinc-900">{step.title}</h3>
+						<p class="mt-2 text-sm leading-relaxed text-zinc-600">{step.text}</p>
+					</li>
+				))
+			}
+		</ol>
+	</div>
+</section>

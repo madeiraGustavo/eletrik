@@ -1,0 +1,128 @@
+---
+import { site } from '../lib/site';
+import CtaButton from './CtaButton.astro';
+import WhatsAppIcon from './WhatsAppIcon.astro';
+
+const base = import.meta.env.BASE_URL.endsWith('/')
+	? import.meta.env.BASE_URL
+	: `${import.meta.env.BASE_URL}/`;
+
+const redirectUrl = new URL(`${base}obrigado/`, Astro.site).href;
+const hasAccessKey = Boolean(site.web3formsAccessKey?.trim());
+---
+
+<section
+	id="contato"
+	data-section="contato"
+	class="ui-section bg-white pb-24 md:pb-20"
+	aria-labelledby="contato-heading"
+>
+	<div class="ui-container">
+		<p class="ui-eyebrow">Contato</p>
+		<h2 id="contato-heading" class="ui-heading max-w-3xl">
+			Peça orçamento pelo WhatsApp ou formulário
+		</h2>
+		<p class="ui-lead">
+			Este case demonstra o fluxo de conversão: WhatsApp como canal principal e formulário como
+			alternativa. Em um projeto real, os contatos seriam os do cliente.
+		</p>
+
+		<div class="mt-12 grid gap-5 lg:grid-cols-2 lg:items-stretch">
+			<div class="ui-panel-dark flex flex-col justify-between">
+				<div>
+					<div class="ui-icon-box mb-5">
+						<WhatsAppIcon class="size-5" />
+					</div>
+					<p class="ui-eyebrow-on-dark mb-2">Preferencial</p>
+					<h3 class="font-display text-2xl font-semibold">WhatsApp</h3>
+					<p class="mt-3 text-sm leading-relaxed text-zinc-300">
+						Fluxo típico de landing: o visitante descreve a necessidade e avança no orçamento
+						pelo WhatsApp.
+					</p>
+					{
+						site.whatsappLabel !== 'WhatsApp' && (
+							<p class="mt-6 font-display text-xl font-semibold text-amber-400">{site.whatsappLabel}</p>
+						)
+					}
+				</div>
+				<div class="mt-8">
+					<CtaButton label="Abrir WhatsApp" cta="contact" fullWidth />
+				</div>
+			</div>
+
+			<form
+				action="https://api.web3forms.com/submit"
+				method="POST"
+				data-track-form
+				class="ui-panel"
+			>
+				{hasAccessKey && <input type="hidden" name="access_key" value={site.web3formsAccessKey} />}
+				<input type="hidden" name="subject" value="Contato pela landing Eletrik" />
+				<input type="hidden" name="from_name" value="Landing Eletrik" />
+				<input type="hidden" name="redirect" value={redirectUrl} />
+				<input type="hidden" name="utm_source" value="" />
+				<input type="hidden" name="utm_medium" value="" />
+				<input type="hidden" name="utm_campaign" value="" />
+				<input type="hidden" name="utm_content" value="" />
+				<input type="hidden" name="utm_term" value="" />
+				<input type="hidden" name="gclid" value="" />
+				<input type="hidden" name="fbclid" value="" />
+				<input
+					type="checkbox"
+					name="botcheck"
+					class="hidden"
+					tabindex="-1"
+					autocomplete="off"
+					aria-hidden="true"
+				/>
+
+				<p class="font-display text-lg font-semibold text-zinc-900">Enviar mensagem</p>
+				<p class="mt-1 text-sm text-zinc-600">
+					Formulário demonstrativo do case. Telefone obrigatório; e-mail opcional.
+				</p>
+
+				<label class="mt-6 block text-sm font-medium text-zinc-800">
+					Nome
+					<input class="ui-field" type="text" name="name" required autocomplete="name" placeholder="Seu nome" />
+				</label>
+
+				<label class="mt-4 block text-sm font-medium text-zinc-800">
+					Telefone / WhatsApp
+					<input
+						class="ui-field"
+						type="tel"
+						name="phone"
+						required
+						autocomplete="tel"
+						placeholder="(43) 99999-9999"
+					/>
+				</label>
+
+				<label class="mt-4 block text-sm font-medium text-zinc-800">
+					E-mail <span class="font-normal text-zinc-500">(opcional)</span>
+					<input
+						class="ui-field"
+						type="email"
+						name="email"
+						autocomplete="email"
+						placeholder="seu@email.com"
+					/>
+				</label>
+
+				<label class="mt-4 block text-sm font-medium text-zinc-800">
+					Mensagem
+					<textarea
+						class="ui-field min-h-28 resize-y"
+						name="message"
+						required
+						placeholder="Conte o que você precisa"
+					></textarea>
+				</label>
+
+				<button type="submit" class="ui-btn-dark ui-btn-block mt-6">
+					Enviar mensagem
+				</button>
+			</form>
+		</div>
+	</div>
+</section>

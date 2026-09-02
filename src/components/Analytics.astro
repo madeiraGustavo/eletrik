@@ -1,0 +1,63 @@
+---
+import { site } from '../lib/site';
+
+interface Props {
+	part?: 'head' | 'body';
+}
+
+const { part = 'head' } = Astro.props;
+const gtmId = site.gtmId?.trim();
+const ga4Id = site.ga4Id?.trim();
+---
+
+{
+	part === 'head' && gtmId && (
+		<script is:inline define:vars={{ gtmId }}>
+			window.addEventListener('load', function () {
+				(function (w, d, s, l, i) {
+					w[l] = w[l] || [];
+					w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+					var f = d.getElementsByTagName(s)[0],
+						j = d.createElement(s),
+						dl = l != 'dataLayer' ? '&l=' + l : '';
+					j.async = true;
+					j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+					f.parentNode.insertBefore(j, f);
+				})(window, document, 'script', 'dataLayer', gtmId);
+			});
+		</script>
+	)
+}
+
+{
+	part === 'head' && !gtmId && ga4Id && (
+		<script is:inline define:vars={{ ga4Id }}>
+			window.addEventListener('load', function () {
+				var s = document.createElement('script');
+				s.async = true;
+				s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ga4Id;
+				document.head.appendChild(s);
+				window.dataLayer = window.dataLayer || [];
+				function gtag() {
+					dataLayer.push(arguments);
+				}
+				gtag('js', new Date());
+				gtag('config', ga4Id, { send_page_view: true });
+			});
+		</script>
+	)
+}
+
+{
+	part === 'body' && gtmId && (
+		<noscript>
+			<iframe
+				src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
+				height="0"
+				width="0"
+				style="display:none;visibility:hidden"
+				title="Google Tag Manager"
+			></iframe>
+		</noscript>
+	)
+}

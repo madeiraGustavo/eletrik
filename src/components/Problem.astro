@@ -1,0 +1,46 @@
+---
+const steps = [
+	{
+		label: 'Falha',
+		title: 'A instalação deixa de ser confiável',
+		text: 'Disjuntores desarmando, fiação antiga ou gambiarras aumentam o risco no dia a dia.',
+	},
+	{
+		label: 'Atraso',
+		title: 'O atendimento não chega quando você precisa',
+		text: 'Sem prazo claro, a casa ou o comércio fica parado — e o problema só cresce.',
+	},
+	{
+		label: 'Risco',
+		title: 'Você convive com o perigo em vez da solução',
+		text: 'Choque, curto e sobrecarga não esperam. Cada dia sem correção é um risco evitado tarde demais.',
+	},
+];
+---
+
+<section id="problema" data-section="problema" class="ui-section bg-white" aria-labelledby="problema-heading">
+	<div class="ui-container">
+		<p class="ui-eyebrow">O caminho que você precisa evitar</p>
+		<h2 id="problema-heading" class="ui-heading max-w-3xl">
+			Um problema elétrico sem resposta vira risco, atraso e prejuízo
+		</h2>
+		<ol class="mt-12 grid gap-5 md:grid-cols-3">
+			{
+				steps.map((step, index) => (
+					<li class="ui-card-muted">
+						<div class="flex items-start justify-between gap-4">
+							<span class="font-display text-5xl font-bold leading-none text-zinc-200">
+								{String(index + 1).padStart(2, '0')}
+							</span>
+							<span class="rounded-full bg-zinc-900 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-amber-400">
+								{step.label}
+							</span>
+						</div>
+						<h3 class="mt-6 font-display text-xl font-semibold text-zinc-900">{step.title}</h3>
+						<p class="mt-3 text-sm leading-relaxed text-zinc-600">{step.text}</p>
+					</li>
+				))
+			}
+		</ol>
+	</div>
+</section>

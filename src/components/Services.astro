@@ -1,0 +1,72 @@
+---
+import { site, servicesCatalog } from '../lib/site';
+
+const audiences = ['Residencial', 'Comercial'];
+
+const icons: Record<string, string> = {
+	instalacao: 'outlet',
+	manutencao: 'tool',
+	quadro: 'panel',
+	iluminacao: 'bulb',
+};
+---
+
+<section id="servicos" data-section="servicos" class="ui-section bg-surface" aria-labelledby="servicos-heading">
+	<div class="ui-container">
+		<div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+			<div>
+				<p class="ui-eyebrow">O que fazemos</p>
+				<h2 id="servicos-heading" class="ui-heading max-w-2xl">
+					Serviços elétricos para casa e empresa
+					{site.city ? ` em ${site.city}` : ''}
+				</h2>
+			</div>
+			<ul class="flex flex-wrap gap-2">
+				{audiences.map((item) => <li class="ui-chip">{item}</li>)}
+			</ul>
+		</div>
+
+		<p class="ui-lead">
+			Instalação, manutenção, quadro e iluminação — escolha o tipo de chamado e peça o orçamento pelo
+			WhatsApp no topo ou na seção de contato.
+		</p>
+
+		<ul class="mt-12 grid gap-5 sm:grid-cols-2">
+			{
+				servicesCatalog.map((service) => {
+					const icon = icons[service.slug] ?? 'outlet';
+					return (
+						<li class="ui-card-interactive flex flex-col">
+							<div class="ui-icon-box" aria-hidden="true">
+								{icon === 'outlet' && (
+									<svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+										<path d="M8 3v6M16 3v6M6 9h12v4a6 6 0 0 1-12 0V9Z" stroke-linejoin="round" />
+										<path d="M12 15v6" stroke-linecap="round" />
+									</svg>
+								)}
+								{icon === 'tool' && (
+									<svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+										<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17v3h3l5.3-5.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.5-2.5 2.5-2.5Z" stroke-linejoin="round" />
+									</svg>
+								)}
+								{icon === 'panel' && (
+									<svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+										<path d="M5 4h14v16H5V4Z" stroke-linejoin="round" />
+										<path d="M9 8v8M12 8v8M15 8v8" stroke-linecap="round" />
+									</svg>
+								)}
+								{icon === 'bulb' && (
+									<svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+										<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3 11c.6.4 1 1.1 1 1.8V17h4v-1.2c0-.7.4-1.4 1-1.8A6 6 0 0 0 12 3Z" stroke-linejoin="round" />
+									</svg>
+								)}
+							</div>
+							<h3 class="mt-5 font-display text-lg font-semibold text-zinc-900">{service.name}</h3>
+							<p class="mt-2 flex-1 text-sm leading-relaxed text-zinc-600">{service.description}</p>
+						</li>
+					);
+				})
+			}
+		</ul>
+	</div>
+</section>
